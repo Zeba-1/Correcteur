@@ -8,3 +8,5 @@ typedef struct noeud {
 Noeud* alloue_noeud(char c);
 
 int ajoute_mot(char* mot, ArbreLexico* arbre);
+void affiche_langage(ArbreLexico arbre);
+int recherche(char* mot, ArbreLexico arbre);

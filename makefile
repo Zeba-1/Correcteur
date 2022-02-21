@@ -15,7 +15,7 @@ src/affiche_arbre.o: src/include/affiche_arbre.h src/include/arbre_lexico.h
 src/arbre_lexico.o: src/include/arbre_lexico.h
 
 %.o: src/%.c
-	$(CC) $< -c  $(cflag) $(lflag)
+	$(CC) $< -c $(cflag) $(lflag)
 
 clean:
 	rm -f *.o
