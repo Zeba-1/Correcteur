@@ -97,3 +97,16 @@ int recherche(char* mot, ArbreLexico arbre) {
     char buffer[MAX_MOT];
     return recherche_rec(mot, arbre, buffer, 0);
 }
+
+/* LIBERATION DE L'ARBRE */
+
+void libere_arbre(ArbreLexico a) {
+    if (a == NULL) {
+        return;
+    }
+    
+    libere_arbre(a->fg);
+    libere_arbre(a->f);
+    libere_arbre(a->fd);
+    free(a);
+}
