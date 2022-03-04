@@ -3,6 +3,7 @@
 
 #include "include/arbre_lexico.h"
 #include "include/affiche_arbre.h"
+#include "include/liste_chaine.h"
 #define MAX_MOT 100 /* longueur max d'un mot */
 
 int main(int argc, char const *argv[]) {
