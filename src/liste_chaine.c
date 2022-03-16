@@ -3,11 +3,13 @@
 #include <string.h>
 
 #include "include/liste_chaine.h"
+#define MAX_MOT 100 /* longueur max d'un mot */
 
 Cellule* alloue_cellule(char* mot) {
     Cellule* cel;
     cel = malloc(sizeof(Cellule));
     if (cel != NULL) {
+        cel->mot = malloc(MAX_MOT);
         strcpy(cel->mot, mot);
         cel->suivant = NULL;
     }
@@ -29,7 +31,7 @@ void libere_liste(Liste* lst) {
     if (*lst == NULL)
         return;
     
-    libere_liste((*lst)->suivant);
+    libere_liste(&(*lst)->suivant);
     free(lst);
 }
 

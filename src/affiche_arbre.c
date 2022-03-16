@@ -70,7 +70,4 @@ void visualise(char* nom_fichier, ArbreLexico a) {
     strcpy(pdf, nom_fichier);
     strcat(pdf, ".pdf");
     creer_pdf(dot, pdf, a);
-
-    strcpy(cmd, "evince");
-    strcat(dot, pdf);
 }

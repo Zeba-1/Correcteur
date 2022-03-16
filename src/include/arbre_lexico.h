@@ -14,5 +14,6 @@ int ajoute_mot(char* mot, ArbreLexico* arbre);
 void affiche_langage(ArbreLexico arbre);
 int recherche(char* mot, ArbreLexico arbre);
 void libere_arbre(ArbreLexico a);
+void supprime_mot(char* mot, ArbreLexico* arbre);
 
 #endif
