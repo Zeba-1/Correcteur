@@ -74,9 +74,9 @@ char* lire_mot(FILE* fichier) {
     return buffer;
 }
 
-void creer_dico(ArbreLexico* a) {
+void creer_dico(ArbreLexico* a, char* nom_dico) {
     char* mot;
-    FILE* dico = fopen("data/dico_3.dico", "r");
+    FILE* dico = fopen(nom_dico, "r");
 
     while ((mot = lire_mot(dico)) != NULL) {
         ajoute_mot(mot, a);

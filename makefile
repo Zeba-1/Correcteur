@@ -3,7 +3,7 @@ CFLAG=-Wall -pedantic -ansi
 LDFLAG=
 OBJ=main.o affiche_arbre.o arbre_lexico.o liste_chaine.o dico.o
 HEAD=src/include/affiche_arbre.h src/include/arbre_lexico.h src/include/liste_chaine.h src/include/dico.h
-EXEC=correcteur
+EXEC=correcteur_0
 
 $(EXEC): $(OBJ)
 	$(CC) $^ -o $@ $(CFLAG) $(LDFLAG)

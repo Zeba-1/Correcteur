@@ -10,7 +10,11 @@ int main(int argc, char const *argv[]) {
     ArbreLexico a;
     a = NULL;
 
-    creer_dico(&a);
+    if (argc < 3) {
+        fprintf(stderr, "PAS ASSEZ D'ARGUMENT");
+    }
+
+    creer_dico(&a, argv[2]);
     corrige(argv[1], a);
 
     return 0;

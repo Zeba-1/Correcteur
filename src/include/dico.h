@@ -3,7 +3,7 @@
 
 #include "arbre_lexico.h"
 
-void creer_dico(ArbreLexico* a);
+void creer_dico(ArbreLexico* a, char* nom_dico);
 void corrige(char* nom_texte, ArbreLexico dico);
 
 #endif
