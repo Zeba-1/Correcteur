@@ -44,6 +44,8 @@ int ajoute_mot(char* mot, ArbreLexico* arbre) {
     return 0;
 }
 
+/* SUPPRESION D'UN MOT DU LANGAGE */
+
 static ArbreLexico connecte_enfant(ArbreLexico enfant_gauche, ArbreLexico enfant_droit) {
     if (enfant_gauche->fd == NULL) {
         enfant_gauche->fd = enfant_droit;
@@ -90,12 +92,10 @@ static ArbreLexico supprime_mot_rec(char* mot, ArbreLexico* arbre) {
             }
             return *arbre;
         }
-    }
-    if ((*arbre)->c == '\0' || (*arbre)->c < *mot) {
+    }else if ((*arbre)->c == '\0' || (*arbre)->c < *mot) {
         (*arbre)->fd = supprime_mot_rec(mot, &(*arbre)->fd);
         return *arbre;
-    }
-    if ((*arbre)->c > *mot) {
+    }else if ((*arbre)->c > *mot) {
         (*arbre)->fg = supprime_mot_rec(mot, &(*arbre)->fg);
         return *arbre;
     }
