@@ -8,14 +8,17 @@
 
 int main(int argc, char const *argv[]) {
     ArbreLexico a;
+    Liste erreurs;
     a = NULL;
+    erreurs = NULL;
 
     if (argc < 3) {
         fprintf(stderr, "PAS ASSEZ D'ARGUMENT");
     }
 
     creer_dico(&a, argv[2]);
-    corrige(argv[1], a);
+    erreurs = trouve_erreur(argv[1], a);
+    propose_correction(erreurs, argv[2]);
 
     return 0;
 }

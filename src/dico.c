@@ -4,6 +4,7 @@
 #include "include/dico.h"
 #include "include/liste_chaine.h"
 #include "include/arbre_lexico.h"
+#include "include/levenshtein.h"
 
 #define MAX_MOT 100
 
@@ -83,7 +84,7 @@ void creer_dico(ArbreLexico* a, char* nom_dico) {
     }
 }
 
-void corrige(char* nom_texte, ArbreLexico dico) {
+Liste trouve_erreur(char* nom_texte, ArbreLexico dico) {
     char* mot;
     Liste lst;
     FILE* texte = fopen(nom_texte, "r");
@@ -95,8 +96,37 @@ void corrige(char* nom_texte, ArbreLexico dico) {
         }
     }
 
-    while (lst != NULL) {
-        printf("%s\n", lst->mot);
-        lst = lst->suivant;
+    fclose(texte);
+    return lst;
+}
+
+void propose_correction(Liste erreurs, char* nom_dico) {
+    int d_min, d;
+    char* mot;
+    Liste correction;
+    FILE* dico = fopen(nom_dico, "r");
+    correction = NULL;
+
+    while (erreurs != NULL) {
+        printf("%s:\n", erreurs->mot);
+        libere_liste(correction);
+        correction = NULL;
+        d_min = 10000; /* Aucune distance > 1000 dans nos dico */
+
+        while ((mot = lire_mot(dico)) != NULL) {
+            d = levenshtein_dist(erreurs->mot, mot);
+            if (d <= d_min) {
+                if (d < d_min) {
+                    libere_liste(correction);
+                    correction = NULL;
+                    d_min = d;
+                }
+                inserer_en_tete(&correction, mot);
+            }
+        }
+        affiche_liste(correction);
+        erreurs = erreurs->suivant;
+        rewind(dico);
     }
+    fclose(dico);
 }

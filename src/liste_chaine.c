@@ -27,18 +27,17 @@ int inserer_en_tete(Liste* lst, char* mot) {
     return 1;
 }
 
-void libere_liste(Liste* lst) {
-    if (*lst == NULL)
+void libere_liste(Liste lst) {
+    if (lst == NULL)
         return;
     
-    libere_liste(&(*lst)->suivant);
+    libere_liste(lst->suivant);
     free(lst);
 }
 
 void affiche_liste(Liste lst) {
-    if (lst == NULL)
-        return;
-
-    printf("%s\n", lst->mot);
-    affiche_liste(lst->suivant);
+    while (lst != NULL) {
+        printf("\t%s\n", lst->mot);
+        lst = lst->suivant;
+    }
 }
