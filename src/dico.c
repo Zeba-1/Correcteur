@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "include/dico.h"
 #include "include/liste_chaine.h"
 #include "include/arbre_lexico.h"
 #include "include/levenshtein.h"
+#include "include/arbre_bk.h"
 
 #define MAX_MOT 100
 
@@ -84,6 +86,32 @@ void creer_dico(ArbreLexico* a, char* nom_dico) {
     }
 }
 
+void creer_arbreBK(ArbreBK* a, char* nom_dico) {
+    char* mot;
+    FILE* dico = fopen(nom_dico, "r");
+
+    while ((mot = lire_mot(dico)) != NULL) {
+        inserer_dans_arbreBK(a, mot);
+    }
+}
+
+void trouve_erreur_bk(char* nom_texte, ArbreBK dico) {
+    char* mot;
+    Liste lst;
+    FILE* texte = fopen(nom_texte, "r");
+    lst = NULL;
+
+    while ((mot = lire_mot(texte)) != NULL) {
+        lst = recherche_bk(dico, mot);
+        if (strcmp(mot, lst->mot) != 0) {
+            printf("%s:\n", mot);
+            affiche_liste(lst);
+        }
+    }
+
+    fclose(texte);
+}
+
 Liste trouve_erreur(char* nom_texte, ArbreLexico dico) {
     char* mot;
     Liste lst;
@@ -109,16 +137,14 @@ void propose_correction(Liste erreurs, char* nom_dico) {
 
     while (erreurs != NULL) {
         printf("%s:\n", erreurs->mot);
-        libere_liste(correction);
-        correction = NULL;
+        libere_liste(&correction);
         d_min = 10000; /* Aucune distance > 1000 dans nos dico */
 
         while ((mot = lire_mot(dico)) != NULL) {
             d = levenshtein_dist(erreurs->mot, mot);
             if (d <= d_min) {
                 if (d < d_min) {
-                    libere_liste(correction);
-                    correction = NULL;
+                    libere_liste(&correction);
                     d_min = d;
                 }
                 inserer_en_tete(&correction, mot);

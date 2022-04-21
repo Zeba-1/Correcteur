@@ -10,7 +10,7 @@ Cellule* alloue_cellule(char* mot);
 
 int inserer_en_tete(Liste* lst, char* mot);
 
-void libere_liste(Liste lst);
+void libere_liste(Liste* lst);
 
 void affiche_liste(Liste lst);
 

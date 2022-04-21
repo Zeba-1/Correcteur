@@ -27,12 +27,13 @@ int inserer_en_tete(Liste* lst, char* mot) {
     return 1;
 }
 
-void libere_liste(Liste lst) {
-    if (lst == NULL)
+void libere_liste(Liste* lst) {
+    if ((*lst) == NULL)
         return;
     
-    libere_liste(lst->suivant);
-    free(lst);
+    libere_liste(&(*lst)->suivant);
+    free((*lst));
+    *lst = NULL;
 }
 
 void affiche_liste(Liste lst) {
